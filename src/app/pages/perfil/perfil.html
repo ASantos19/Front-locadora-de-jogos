@@ -1,0 +1,35 @@
+<h1>Meu Perfil</h1>
+
+@if (usuario) {
+
+<mat-card class="perfil-card">
+
+  <div class="perfil-topo">
+
+    <div class="avatar">
+      {{ usuario.apelido?.charAt(0).toUpperCase() }}
+    </div>
+
+    <div class="info-principal">
+
+      <h2>
+        {{ usuario.apelido }}
+      </h2>
+
+      <p class="email">
+        {{ usuario.email }}
+      </p>
+
+      <span class="badge">
+        {{ usuario.role === 'ROLE_ADMIN'
+        ? 'Administrador'
+        : 'Usuário' }}
+      </span>
+
+    </div>
+
+  </div>
+
+</mat-card>
+
+}

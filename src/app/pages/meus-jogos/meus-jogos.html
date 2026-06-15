@@ -1,0 +1,147 @@
+<h1>Meus Jogos</h1>
+
+<p>Total: {{ licencas ? licencas.length : 0 }}</p>
+
+<mat-form-field appearance="outline">
+
+  <mat-label>
+    Buscar jogo
+  </mat-label>
+
+  <input
+    matInput
+    placeholder="Digite o nome do jogo"
+    [value]="buscaNome()"
+    (input)="buscaNome.set($any($event.target).value)"
+  />
+
+</mat-form-field>
+
+<div class="filtros">
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Tipo
+    </mat-label>
+
+    <mat-select
+      [value]="filtroTipo()"
+      (valueChange)="filtroTipo.set($event)"
+    >
+
+      <mat-option value="">
+        Todos
+      </mat-option>
+
+      <mat-option value="COMPRA">
+        Compra
+      </mat-option>
+
+      <mat-option value="ALUGUEL">
+        Aluguel
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Status
+    </mat-label>
+
+    <mat-select
+      [value]="filtroStatus()"
+      (valueChange)="filtroStatus.set($event)"
+    >
+
+      <mat-option value="">
+        Todos
+      </mat-option>
+
+      <mat-option value="ATIVA">
+        Ativa
+      </mat-option>
+
+      <mat-option value="EXPIRADA">
+        Expirada
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+</div>
+
+
+@if (licencas && licencas.length === 0) {
+
+<mat-card class="card-vazio">
+
+  <mat-card-content>
+    Você ainda não possui jogos comprados ou alugados.
+  </mat-card-content>
+
+</mat-card>
+
+}
+
+<div class="container-jogos">
+
+  @for (licenca of licencasFiltradas(); track licenca.id) {
+
+  <mat-card class="card-jogo">
+
+    <mat-card-header>
+
+      <mat-card-title>
+        {{ licenca.nomeJogo }}
+      </mat-card-title>
+
+      <mat-card-subtitle>
+        {{ licenca.tipoLicenca | titlecase }}
+      </mat-card-subtitle>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <p>
+        <strong>Status:</strong>
+        {{ licenca.statusLicenca | status}}
+      </p>
+
+      <p>
+        <strong>Valor:</strong>
+        {{ licenca.valor | currency:'BRL' }}
+      </p>
+
+      <p>
+        <strong>Data:</strong>
+        {{ licenca.dataCompra | date:'dd/MM/yyyy' }}
+      </p>
+
+      @if (licenca.dataExpiracao) {
+
+      <p>
+        <strong>Expira em:</strong>
+        {{ licenca.dataCompra | date:'dd/MM/yyyy' }}
+      </p>
+
+      }
+
+    </mat-card-content>
+
+  </mat-card>
+
+  }
+
+  <mat-paginator [length]="totalRegistros()" [pageSize]="tamanhoPagina" [pageSizeOptions]="[5, 10, 15]"
+    (page)="aoMudarPagina($event)">
+
+  </mat-paginator>
+
+
+</div>

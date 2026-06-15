@@ -1,0 +1,218 @@
+<h1>Catálogo de Jogos</h1>
+
+<p>Total de jogos: {{ totalJogos() }}</p>
+
+@if (ehAdmin) {
+<mat-card class="cadastro-card">
+
+  <mat-card-header>
+    <mat-card-title>
+      Cadastrar Novo Jogo
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+    <div class="form-grid">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Nome do Jogo</mat-label>
+        <input matInput [(ngModel)]="novoJogo.nomeJogo">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Data de Lançamento</mat-label>
+        <input matInput type="date" [(ngModel)]="novoJogo.dataLancamento">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Gênero</mat-label>
+
+        <mat-select [(ngModel)]="novoJogo.generoJogo">
+
+          @for (genero of generos; track genero) {
+          <mat-option [value]="genero">
+            {{ genero }}
+          </mat-option>
+          }
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Plataforma</mat-label>
+
+        <mat-select [(ngModel)]="novoJogo.plataforma">
+
+          @for (plataforma of plataformas; track plataforma) {
+          <mat-option [value]="plataforma">
+            {{ plataforma }}
+          </mat-option>
+          }
+
+        </mat-select>
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Preço de Compra</mat-label>
+
+        <input matInput type="number" [(ngModel)]="novoJogo.precoCompra">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Preço de Aluguel</mat-label>
+
+        <input matInput type="number" [(ngModel)]="novoJogo.precoAluguel">
+      </mat-form-field>
+
+    </div>
+
+    <button mat-raised-button color="primary" (click)="cadastrarJogo()">
+
+      {{ jogoEditandoId ? 'Salvar Alterações' : 'Cadastrar Jogo' }}
+
+    </button>
+
+  </mat-card-content>
+
+</mat-card>
+}
+
+<div class="filtros">
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Gênero
+    </mat-label>
+
+    <mat-select [ngModel]="generoFiltro()" (ngModelChange)="generoFiltro.set($event)">
+
+      <mat-option value="">
+        Todos
+      </mat-option>
+
+      @for (genero of generos; track genero) {
+
+      <mat-option [value]="genero">
+
+        {{ genero | generoJogo }}
+
+      </mat-option>
+
+      }
+
+    </mat-select>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>
+      Plataforma
+    </mat-label>
+
+    <mat-select [ngModel]="plataformaFiltro()" (ngModelChange)="plataformaFiltro.set($event)">
+
+      <mat-option value="">
+        Todas
+      </mat-option>
+
+      @for (plataforma of plataformas; track plataforma) {
+
+      <mat-option [value]="plataforma">
+
+        {{ plataforma | plataforma}}
+
+      </mat-option>
+
+      }
+
+    </mat-select>
+
+  </mat-form-field>
+
+</div>
+
+@if (carregando()) {
+<p>Carregando jogos...</p>
+}
+
+@if (erro()) {
+<p>{{ erro() }}</p>
+}
+
+<div class="container-jogos">
+
+  @for (jogo of jogosFiltrados(); track jogo.id) {
+
+  <div class="card-jogo">
+
+    <h2>{{ jogo.nomeJogo }}</h2>
+
+    <p>
+      <strong>Gênero:</strong>
+      {{ jogo.generoJogo | generoJogo}}
+    </p>
+
+    <p>
+      <strong>Plataforma:</strong>
+      {{ jogo.plataforma | plataforma }}
+    </p>
+
+    <p>
+      <strong>Lançamento:</strong>
+      {{ jogo.dataLancamento | date:'dd/MM/yyyy' }}
+    </p>
+
+    <p>
+      <strong>Compra:</strong>
+      {{ jogo.precoCompra | currency:'BRL' }}
+    </p>
+
+    <p>
+      <strong>Aluguel:</strong>
+      {{ jogo.precoAluguel | currency:'BRL' }}
+    </p>
+
+    <div class="acoes">
+      <button mat-raised-button color="primary" (click)="comprarJogo(jogo)" >
+
+        Comprar
+
+      </button>
+
+      <button mat-raised-button color="accent" (click)="alugarJogo(jogo)">
+
+        Alugar
+
+      </button>
+
+      @if (ehAdmin) {
+
+      <button mat-raised-button color="accent" (click)="editarJogo(jogo)">
+
+        Editar
+
+      </button>
+
+      <button mat-raised-button color="warn" (click)="removerJogo(jogo.id)">
+
+        Excluir
+
+      </button>
+
+      }
+    </div>
+
+  </div>
+
+  }
+  <mat-paginator [length]="totalRegistros()" [pageSize]="tamanhoPagina" [pageSizeOptions]="[3, 6, 9]"
+    (page)="aoMudarPagina($event)">
+
+  </mat-paginator>
+
+</div>

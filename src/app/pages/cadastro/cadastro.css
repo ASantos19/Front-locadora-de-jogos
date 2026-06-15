@@ -1,0 +1,25 @@
+.cadastro-card {
+  width: 450px;
+  margin: 60px auto;
+  padding: 16px;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+mat-card-actions {
+  justify-content: end;
+}
+
+mat-card-footer {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.erro {
+  color: red;
+}

@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>
+  Confirmar pagamento
+</h2>
+
+<mat-dialog-content>
+
+  <p>
+    Deseja efetuar o pagamento do jogo:
+  </p>
+
+  <strong>
+    {{ dados.nomeJogo }}
+  </strong>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-button
+    [mat-dialog-close]="false">
+
+    Cancelar
+
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="true">
+
+    Efetuar Pagamento
+
+  </button>
+
+</mat-dialog-actions>
