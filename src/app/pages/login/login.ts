@@ -1,7 +1,7 @@
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
@@ -26,6 +26,7 @@ import { MatIconModule } from '@angular/material/icon';
 export class Login {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly cdr = inject(ChangeDetectorRef);
 
   email = '';
   password = '';
@@ -50,6 +51,7 @@ export class Login {
 
         error: () => {
           this.erro = 'Email ou senha inválidos.';
+          this.cdr.detectChanges();
         },
       });
   }

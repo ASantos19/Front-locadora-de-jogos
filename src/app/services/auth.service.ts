@@ -53,39 +53,30 @@ export class AuthService {
   }
 
   estaAutenticado(): boolean {
+    const token = this.obterToken();
 
-  const token = this.obterToken();
+    if (!token) {
+      return false;
+    }
 
-  if (!token) {
-    return false;
-  }
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
 
-  try {
+      const expiracao = payload.exp * 1000;
 
-    const payload =
-      JSON.parse(atob(token.split('.')[1]));
+      if (Date.now() > expiracao) {
+        this.logout();
 
-    const expiracao =
-      payload.exp * 1000;
+        return false;
+      }
 
-    if (Date.now() > expiracao) {
-
+      return true;
+    } catch {
       this.logout();
 
       return false;
     }
-
-    return true;
-
-  } catch {
-
-    this.logout();
-
-    return false;
-
   }
-}
-
 
   obterUsuarioId(): number {
     const token = this.obterToken();
@@ -104,12 +95,20 @@ export class AuthService {
   }
 
   obterUsuarioLogado() {
+    return this.http.get<any>('http://localhost:8080/usuarios/me');
+  }
 
-  return this.http.get<any>(
-    'http://localhost:8080/usuarios/me'
-  );
+  atualizarPerfil(usuario: any) {
+    return this.http.put('http://localhost:8080/usuarios/me', usuario);
+  }
 
-}
+  excluirUsuario(id: number) {
+    return this.http.delete(`http://localhost:8080/usuarios/${id}`);
+  }
+
+  listarUsuarios() {
+    return this.http.get<any[]>('http://localhost:8080/usuarios');
+  }
 
   ehAdmin(): boolean {
     const token = this.obterToken();

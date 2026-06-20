@@ -1,35 +1,129 @@
-<h1>Meu Perfil</h1>
-
-@if (usuario) {
-
 <mat-card class="perfil-card">
 
   <div class="perfil-topo">
 
     <div class="avatar">
-      {{ usuario.apelido?.charAt(0).toUpperCase() }}
+      {{ usuario?.apelido?.charAt(0).toUpperCase() }}
     </div>
 
     <div class="info-principal">
 
-      <h2>
-        {{ usuario.apelido }}
-      </h2>
+      @if (!editando) {
+
+      <h2>{{ usuario?.apelido }}</h2>
 
       <p class="email">
-        {{ usuario.email }}
+        {{ usuario?.email }}
       </p>
 
       <span class="badge">
-        {{ usuario.role === 'ROLE_ADMIN'
+
+        {{ usuario?.role === 'ROLE_ADMIN'
         ? 'Administrador'
         : 'Usuário' }}
+
       </span>
+
+      }
+
+
+
+      @if (editando) {
+
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>Apelido</mat-label>
+
+        <input matInput [(ngModel)]="usuarioEdicao.apelido">
+
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+
+        <mat-label>Email</mat-label>
+
+        <input matInput [(ngModel)]="usuarioEdicao.email">
+
+      </mat-form-field>
+
+      }
+
 
     </div>
 
   </div>
 
+
+
+  <div class="perfil-acoes">
+
+    @if (!editando) {
+
+    <button mat-raised-button color="primary" (click)="editarPerfil()">
+
+      Editar Perfil
+
+    </button>
+
+
+    }
+
+    @if (editando) {
+
+    <button mat-raised-button color="primary" (click)="salvarPerfil()">
+
+      Salvar
+
+    </button>
+
+    <button mat-raised-button color="warn" (click)="cancelarEdicao()">
+
+      Cancelar
+
+    </button>
+
+    }
+
+  </div>
+
 </mat-card>
 
+@if (ehAdmin) {
+
+<h2>Usuários Cadastrados</h2>
+
+<p>Total: {{ usuarios().length }}</p>
+
+
+
+<div class="usuarios-admin">
+
+  @for (item of usuarios(); track $index) {
+
+  <mat-card class="usuario-card">
+
+    <div class="usuario-info">
+
+      <div class="avatar-mini">
+        {{ item.apelido?.charAt(0).toUpperCase() }}
+      </div>
+
+      <div class="dados-usuario">
+        <h3>{{ item.apelido }}</h3>
+        <p>{{ item.email }}</p>
+      </div>
+
+    </div>
+
+    <button mat-raised-button color="warn" (click)="excluirUsuario(item)" class="btn-excluir">
+      Excluir
+    </button>
+
+
+  </mat-card>
+
+  }
+
+</div>
 }
