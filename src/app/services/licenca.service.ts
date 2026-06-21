@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class LicencaService {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:9090/licencas';
+  private readonly apiUrl = 'http://172.25.1.60:9090/licencas';
 
   comprar(usuarioId: number, jogoId: number) {
     return this.http.post(`${this.apiUrl}/comprar`, {
