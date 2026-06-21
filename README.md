@@ -1,59 +1,86 @@
-# LocadoraJogosFront
+# Locadora de Jogos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+Front-end de uma aplicação de locadora de jogos, desenvolvido com Angular. O sistema permite que usuários criem uma conta, façam login, consultem o catálogo e comprem ou aluguem jogos.
 
-## Development server
+## Funcionalidades
 
-To start a local development server, run:
+- Cadastro e login de usuários
+- Autenticação com token JWT
+- Catálogo de jogos com paginação
+- Compra e aluguel de jogos
+- Listagem dos jogos do usuário
+- Visualização e edição do perfil
+- Gerenciamento de jogos para administradores
 
-```bash
-ng serve
-```
+## Tecnologias
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Angular 21
+- TypeScript
+- Angular Material
+- RxJS
+- Express e Angular SSR
+- Vitest
 
-## Code scaffolding
+## Pré-requisitos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Antes de começar, instale:
 
-```bash
-ng generate component component-name
-```
+- [Node.js](https://nodejs.org/)
+- npm
+- Back-end da aplicação em execução na porta `8080`
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Instalação
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Clone o repositório e acesse a pasta do projeto:
 
 ```bash
-ng test
+git clone <URL_DO_REPOSITORIO>
+cd Front-locadora-de-jogos-main
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+Instale as dependências:
 
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Executando o projeto
 
-## Additional Resources
+Inicie o servidor de desenvolvimento:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm start
+```
+
+A aplicação ficará disponível em:
+
+```text
+http://localhost:4200
+```
+
+O front-end está configurado para consumir a API em `http://localhost:8080`.
+
+## Outros comandos
+
+```bash
+# Gerar a versão de produção
+npm run build
+
+# Executar os testes
+npm test
+
+# Compilar automaticamente durante o desenvolvimento
+npm run watch
+```
+
+## Rotas principais
+
+- `/login` — autenticação
+- `/cadastro` — criação de conta
+- `/jogos` — catálogo de jogos
+- `/meus-jogos` — jogos comprados ou alugados
+- `/perfil` — dados do usuário
+
+## Autor
+
+Projeto desenvolvido para fins de estudo.

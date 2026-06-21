@@ -11,14 +11,14 @@ export class JogoService {
   private readonly jogos = signal<Jogo[]>([]);
   private readonly carregando = signal(false);
   private readonly erro = signal<string | null>(null);
-  private readonly apiUrl = 'http://localhost:8080/jogos';
+  private readonly apiUrl = 'http://localhost:9090/jogos';
 
   listar(): Signal<Jogo[]> {
     return this.jogos.asReadonly();
   }
 
   listarPaginado(params: { pagina: number; tamanho: number }) {
-    return this.http.get<any>('http://localhost:8080/jogos', {
+    return this.http.get<any>('http://localhost:9090/jogos', {
       params: {
         page: params.pagina,
         size: params.tamanho,

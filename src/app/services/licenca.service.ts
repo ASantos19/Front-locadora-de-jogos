@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class LicencaService {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:8080/licencas';
+  private readonly apiUrl = 'http://localhost:9090/licencas';
 
   comprar(usuarioId: number, jogoId: number) {
     return this.http.post(`${this.apiUrl}/comprar`, {
@@ -34,7 +34,7 @@ export class LicencaService {
 
     tamanho: number,
   ) {
-    return this.http.get<any>(`http://localhost:8080/licencas/usuario/${usuarioId}`, {
+    return this.http.get<any>(`http://localhost:9090/licencas/usuario/${usuarioId}`, {
       params: {
         page: pagina,
         size: tamanho,
