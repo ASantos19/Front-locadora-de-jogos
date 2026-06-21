@@ -34,7 +34,7 @@ export class LicencaService {
 
     tamanho: number,
   ) {
-    return this.http.get<any>(`http://localhost:9090/licencas/usuario/${usuarioId}`, {
+    return this.http.get<any>(`http://172.25.1.60:9090/licencas/usuario/${usuarioId}`, {
       params: {
         page: pagina,
         size: tamanho,

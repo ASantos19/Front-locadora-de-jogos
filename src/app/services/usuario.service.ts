@@ -12,7 +12,7 @@ export class UsuarioService {
   private readonly usuarios = signal<Usuario[]>([]);
   private readonly carregando = signal(false);
   private readonly erro = signal<string | null>(null);
-  private readonly apiUrl = 'http://localhost:9090/usuarios';
+  private readonly apiUrl = 'http://172.25.1.60:9090/usuarios';
 
   listar(): Signal<Usuario[]> {
     return this.usuarios.asReadonly();

@@ -10,7 +10,7 @@ import { AuthResponse } from '../models/Auth-response.model';
 export class AuthService {
   private readonly http = inject(HttpClient);
 
-  private readonly apiUrl = 'http://localhost:9090/auth';
+  private readonly apiUrl = 'http://172.25.1.60:9090/auth';
 
   login(dados: AuthRequest) {
     return this.http.post<AuthResponse>(`${this.apiUrl}/login`, dados);
@@ -95,19 +95,19 @@ export class AuthService {
   }
 
   obterUsuarioLogado() {
-    return this.http.get<any>('http://localhost:9090/usuarios/me');
+    return this.http.get<any>('http://172.25.1.60:9090/usuarios/me');
   }
 
   atualizarPerfil(usuario: any) {
-    return this.http.put('http://localhost:9090/usuarios/me', usuario);
+    return this.http.put('http://172.25.1.60:9090/usuarios/me', usuario);
   }
 
   excluirUsuario(id: number) {
-    return this.http.delete(`http://localhost:9090/usuarios/${id}`);
+    return this.http.delete(`http://172.25.1.60:9090/usuarios/${id}`);
   }
 
   listarUsuarios() {
-    return this.http.get<any[]>('http://localhost:9090/usuarios');
+    return this.http.get<any[]>('http://172.25.1.60:9090/usuarios');
   }
 
   ehAdmin(): boolean {
